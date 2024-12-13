@@ -14,6 +14,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Set Proxy
+      run: |
+        export HTTP_PROXY=http://192.168.43.117:8080  # Proxy host va portini bu yerda ko'rsating
+        export HTTPS_PROXY=http://192.168.43.117:8080
+        export http_proxy=http://192.168.43.117:8080
+        export https_proxy=http://192.168.43.117:8080
+
     - name: Install dependencies
       run: |
         sudo apt update
@@ -37,7 +44,7 @@ jobs:
       run: |
         export ANDROID_HOME=$HOME/android-sdk
         export PATH=$ANDROID_HOME/cmdline-tools/tools/bin:$ANDROID_HOME/platform-tools:$PATH
-        buildozer -v android debug
+        buildozer -v android debug --verbose  # Verbose rejimni qo'shdik
 
     - name: Upload APK
       uses: actions/upload-artifact@v3

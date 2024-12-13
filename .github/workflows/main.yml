@@ -11,19 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Repository-ni klonlash
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # 2. Python va Buildozer o‘rnatish
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install -y python3 python3-pip build-essential git zip unzip openjdk-11-jdk
+        sudo apt install -y python3 python3-pip build-essential git zip unzip openjdk-11-jdk wget
         pip install --upgrade pip
         pip install buildozer cython
 
-    # 3. Android SDK va NDK yuklash
     - name: Install Android SDK and NDK
       run: |
         sudo apt install -y wget
@@ -33,17 +30,15 @@ jobs:
         mv $HOME/android-sdk/cmdline-tools/cmdline-tools $HOME/android-sdk/cmdline-tools/tools
         export ANDROID_HOME=$HOME/android-sdk
         export PATH=$ANDROID_HOME/cmdline-tools/tools/bin:$ANDROID_HOME/platform-tools:$PATH
-        sdkmanager --install "build-tools;33.0.2" "platforms;android-33" "platform-tools" "ndk;23.1.7779620"
+        sdkmanager --install "build-tools;33.0.2" "platforms;android-33" "platform-tools" "ndk;23.1.7779620" "aidl" --accept-licenses
         yes | sdkmanager --licenses
 
-    # 4. Buildozer yordamida APK yaratish
     - name: Build APK
       run: |
         export ANDROID_HOME=$HOME/android-sdk
         export PATH=$ANDROID_HOME/cmdline-tools/tools/bin:$ANDROID_HOME/platform-tools:$PATH
         buildozer -v android debug
 
-    # 5. APK faylini chiqarish
     - name: Upload APK
       uses: actions/upload-artifact@v3
       with:

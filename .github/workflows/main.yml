@@ -20,7 +20,7 @@ jobs:
         export HTTPS_PROXY=http://192.168.43.117:8080
         export http_proxy=http://192.168.43.117:8080
         export https_proxy=http://192.168.43.117:8080
-        -v android debug --verbose
+        --verbose
 
     - name: Install dependencies
       run: |

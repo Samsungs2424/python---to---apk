@@ -31,7 +31,7 @@ jobs:
         export ANDROID_HOME=$HOME/android-sdk
         export PATH=$ANDROID_HOME/cmdline-tools/tools/bin:$ANDROID_HOME/platform-tools:$PATH
         sdkmanager --install "build-tools;33.0.2" "platforms;android-33" "platform-tools" "ndk;23.1.7779620" "aidl" --accept-licenses
-        yes | sdkmanager --licenses
+        echo y | sdkmanager --licenses  # "yes" o'rniga "echo y" ishlatish
 
     - name: Build APK
       run: |

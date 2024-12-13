@@ -21,8 +21,14 @@ jobs:
         pip install --upgrade pip
         pip install buildozer cython
 
-    - name: Install Android SDK and NDK
+    - name: Install Android SDK and NDK with Proxy
       run: |
+        # Proxy server address with port 7777
+        export HTTP_PROXY=http://192.168.43.117:7777
+        export HTTPS_PROXY=http://192.168.43.117:7777
+        export http_proxy=http://192.168.43.117:7777
+        export https_proxy=http://192.168.43.117:7777
+
         sudo apt install -y wget
         wget https://dl.google.com/android/repository/commandlinetools-linux-8092744_latest.zip
         mkdir -p $HOME/android-sdk
@@ -30,12 +36,9 @@ jobs:
         mv $HOME/android-sdk/cmdline-tools/cmdline-tools $HOME/android-sdk/cmdline-tools/tools
         export ANDROID_HOME=$HOME/android-sdk
         export PATH=$ANDROID_HOME/cmdline-tools/tools/bin:$ANDROID_HOME/platform-tools:$PATH
+
         sdkmanager --install "build-tools;33.0.2" "platforms;android-33" "platform-tools" "ndk;23.1.7779620" "aidl" --accept-licenses
         yes | sdkmanager --licenses
-
-    - name: Disable Proxy
-      run: |
-        unset HTTP_PROXY HTTPS_PROXY http_proxy https_proxy
 
     - name: Build APK
       run: |

@@ -24,10 +24,10 @@ jobs:
     - name: Install Android SDK and NDK with Proxy
       run: |
         # Proxy server address with port 7777 (agar proxy ishlatmoqchi bo'lsangiz)
-        export HTTP_PROXY=http://192.168.43.114:7777
-        export HTTPS_PROXY=http://192.168.43.114:7777
-        export http_proxy=http://192.168.43.114:7777
-        export https_proxy=http://192.168.43.114:7777
+        export HTTP_PROXY=http://192.168.43.117:7777
+        export HTTPS_PROXY=http://192.168.43.117:7777
+        export http_proxy=http://192.168.43.117:7777
+        export https_proxy=http://192.168.43.117:7777
 
         # Android SDKni o'rnatish uchun yuklab olingan faylni joylashtirish
         mkdir -p $HOME/android-sdk/cmdline-tools

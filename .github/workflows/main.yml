@@ -23,22 +23,20 @@ jobs:
 
     - name: Install Android SDK and NDK with Proxy
       run: |
-        # Proxy server address with port 7777 (agar proxy ishlatmoqchi bo'lsangiz)
+        # Proxy server address with port 7777
         export HTTP_PROXY=http://192.168.43.117:7777
         export HTTPS_PROXY=http://192.168.43.117:7777
         export http_proxy=http://192.168.43.117:7777
         export https_proxy=http://192.168.43.117:7777
 
-        # Android SDKni o'rnatish uchun yuklab olingan faylni joylashtirish
-        mkdir -p $HOME/android-sdk/cmdline-tools
+        sudo apt install -y wget
+        wget https://dl.google.com/android/repository/commandlinetools-linux-8092744_latest.zip
+        mkdir -p $HOME/android-sdk
         unzip commandlinetools-linux-8092744_latest.zip -d $HOME/android-sdk/cmdline-tools
         mv $HOME/android-sdk/cmdline-tools/cmdline-tools $HOME/android-sdk/cmdline-tools/tools
-        
-        # O'rnatilgan Android SDK va buildozer uchun kerakli vositalarni sozlash
         export ANDROID_HOME=$HOME/android-sdk
         export PATH=$ANDROID_HOME/cmdline-tools/tools/bin:$ANDROID_HOME/platform-tools:$PATH
-        
-        # Android SDK vositalarini o'rnatish
+
         sdkmanager --install "build-tools;33.0.2" "platforms;android-33" "platform-tools" "ndk;23.1.7779620" "aidl" --accept-licenses
         yes | sdkmanager --licenses
 
